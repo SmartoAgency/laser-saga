@@ -1,0 +1,80 @@
+$default-font: "Gilroy",
+  sans-serif;
+$default-font2: "Arsenal",
+  sans-serif;
+
+$wc: #ffffff;
+$bc: #000000;
+$color1: #2A3341;
+$color2: #ECEAE1;
+$color3: #A0A6AE;
+$color4: #EFBC48;
+$color5: #E23E28;
+$color6: #0951BE;
+$color-background: #FFFDF3;
+$border-color: rgba(152, 152, 152, 0.25);
+
+$disable-bg: #D4D2CC;
+$disable-text: #989898;
+
+$padding-wrap: 45px;
+$padding-wrap--small: 20px;
+$name-project: 'montreal';
+
+//$offset-controller-vert: 40px;
+//$offset-controller-hor: 50px;
+
+:root {
+  --s3d-title: 42px;
+  --s3d-header: 150px;
+  --offset-controller-vert: 40px;
+  --offset-controller-hor: 70px;
+  --table-row-height: 50px;
+  --size-btn-circle: 65px;
+  --link-fz-flat: 19px;
+
+  --info-fz-title: 42px;
+  --info-fz-list: 16px;
+  --info-offset-buttom: 20px;
+  --filter-width: 520px;
+}
+
+@media screen and (max-width:1440px){
+  :root {
+    --s3d-title: 36px;
+
+    --offset-controller-vert: 40px;
+    --offset-controller-hor: 50px;
+    --table-row-height: 42px;
+    --size-btn-circle: 50px;
+    --link-fz-flat: 15px;
+    --s3d-header: 110px;
+    --info-fz-title: 36px;
+    --info-fz-list: 15px;
+    --info-offset-buttom: 15px;
+    --filter-width: 400px;
+  }
+}
+
+
+@media screen and (max-width:992px){
+  :root {
+    --offset-controller-vert: 0px;
+    --offset-controller-hor: 25px;
+
+  }
+}
+@media screen and (max-width: 680px){
+  :root {
+    --s3d-title: 18px;
+    --s3d-header: 70px;
+    --offset-controller-vert: 0;
+    --offset-controller-hor: 15px;
+    --size-btn-circle: 40px;
+    --link-fz-flat: 13px;
+
+    --info-fz-title: 18px;
+    --info-fz-list: 13px;
+    --info-offset-buttom: 12px;
+  }
+}

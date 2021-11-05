@@ -1,0 +1,36 @@
+include ../includes/mixins
+
+-
+  var pagesLink = [
+    {
+      home: '/',
+      about: './about.html',
+    }
+  ];
+block variable
+doctype html
+html(lang="uk")
+  head
+    meta(charset='utf-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+    //- Edge и ряд мобильных браузеров слишком умны. Отключим это.
+    meta(name='format-detection', content='telephone=no')
+    meta(name='format-detection', content='date=no')
+    meta(name='format-detection', content='address=no')
+    meta(name='format-detection', content='email=no')
+    meta(content='notranslate', name='google')
+    //- Фавиконки (https://realfavicongenerator.net)
+    link(rel='icon', type='image/png', sizes='16x16', href='../static/favicon.ico')
+    block meta
+    block head
+
+  body(class= class_page id= id_page)
+    block header
+    // START SVG SPRITE
+    include ../../assets/s3d/svg-sprite/sprite/symbol_sprite.php
+    // END SVG SPRITE
+
+    .page__inner(data-scroll-container)
+      .page__content
+        block content
+    block scripts

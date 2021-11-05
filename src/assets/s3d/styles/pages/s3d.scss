@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, .page__content, .page__inner {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  min-height: 0!important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  display: block;
+  font-family: $default-font;
+}
+
+sup {
+  font-size: 0.7em;
+  transform: translateY(-30%);
+  vertical-align: super;
+}
+
+.unselectable {
+  -webkit-touch-callout: none; /*iOS Safari*/
+  user-select: none;   /*Chrome/Safari/Opera*/
+}
+
+.s3d {
+
+}
+.scene {
+  height: 100%;
+  width: 100%;
+}
+

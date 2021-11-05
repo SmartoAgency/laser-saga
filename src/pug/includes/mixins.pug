@@ -1,0 +1,8 @@
+mixin svg(icon)
+		svg(class="icon--"+ icon + ""  role="presentation")&attributes(attributes)
+			use(xlink:href="#icon-"+ icon + "")
+
+mixin link-blank(href)
+	a(herf=href rel="nofollow" target="_blank")
+mixin img(src)
+	img(src='./assets/images/'+src+'' title="foto" alt="foto")&attributes(attributes)
