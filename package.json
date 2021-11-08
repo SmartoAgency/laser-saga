@@ -17,7 +17,7 @@
     "last 3 version"
   ],
   "engines": {
-    "node": ">=14"
+    "node": "14.x"
   },
   "keywords": [],
   "author": "Tsys Artem",
