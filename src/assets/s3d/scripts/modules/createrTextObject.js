@@ -1,8 +1,7 @@
 import * as THREE from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { Font } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { FontLoader, Font } from 'three/examples/jsm/loaders/FontLoader';
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 function loadFontAsync() {
   const fontName = 'optimer'; // helvetiker, optimer, gentilis, droid sans, droid serif

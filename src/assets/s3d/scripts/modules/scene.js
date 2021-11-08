@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 // import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
@@ -29,14 +29,16 @@ export default function createScene() {
 
     // CAMERA
 
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 50000);
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 700, 1500);
     cameraTarget = new THREE.Vector3(0, 200, 0);
 
     // SCENE
 
     scene = new THREE.Scene();
+    // scene.background = new THREE.Color(0xffffff);
     scene.background = new THREE.Color(0x000104);
+    // scene.fog = new THREE.FogExp2(0xffffff, 0.000275);
     scene.fog = new THREE.FogExp2(0x000104, 0.0000675);
     camera.lookAt(scene.position);
 
@@ -44,6 +46,7 @@ export default function createScene() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.autoClear = false;
+    renderer.shadowMap.enabled	= true;
     // LIGHTS
 
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.125);
