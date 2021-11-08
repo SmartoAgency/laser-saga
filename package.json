@@ -2,10 +2,12 @@
   "name": "build",
   "version": "1.0.0",
   "description": "work builder",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "./src/assets/s3d/scripts/index.js",
+	"scripts": {
+		"test": "jest",
+		"prebuild": "rm -rf dist",
+		"build": "NODE_ENV=production npx webpack --mode production"
+	},
   "type": "modules",
   "jest": {
     "testEnvironment": "node",
