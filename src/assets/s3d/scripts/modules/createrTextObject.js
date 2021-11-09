@@ -14,7 +14,7 @@ function loadFontAsync() {
     //     resolve(objectText);
     //   });
     const loader = new FontLoader();
-    loader.load(`assets/fonts/${fontName}_${fontWeight}.typeface.json`, response => {
+    loader.load(`/wp-content/themes/laser-saga/assets/fonts/${fontName}_${fontWeight}.typeface.json`, response => {
       resolve(response);
     }, () => {}, err => {
       console.log(err);
@@ -25,8 +25,8 @@ function loadFontAsync() {
 }
 
 function createText(font, text) {
-  const height = 2;
-  const size = 80;
+  const height = 20;
+  const size = 140;
   const hover = 0;
   const curveSegments = 10;
   const bevelEnabled = true;
@@ -49,7 +49,7 @@ function createText(font, text) {
     bevelSize,
     bevelEnabled,
   });
-  textGeo.translate(0, 200, 200);
+  textGeo.translate(0, 250, 200);
   textGeo.computeBoundingBox();
 
   const centerOffset = (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);

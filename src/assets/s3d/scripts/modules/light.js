@@ -205,11 +205,11 @@ function tweenBack(light) {
     .easing(TWEEN.Easing.Quadratic.Out).start();
 }
 function tween(light) {
-  // new TWEEN.Tween(light).to({
-  //   angle: (Math.random() * 0.1) + 0.05,
-  //   penumbra: Math.random() + 1,
-  // }, Math.random() * 1000 + 2000)
-  //   .easing(TWEEN.Easing.Quadratic.Out).start();
+  new TWEEN.Tween(light).to({
+    angle: (Math.random() * 0.1) + 0.05,
+    penumbra: Math.random() + 1,
+  }, Math.random() * 1000 + 2000)
+    .easing(TWEEN.Easing.Quadratic.Out).start();
 
   // new TWEEN.Tween(light.position).to({
   //   x: (Math.random() * 500) - 150,
@@ -221,7 +221,7 @@ function tween(light) {
   new TWEEN.Tween(light.position).to({
     x: Math.sin(time * Math.random()) * 200,
     y: 0,
-    z: Math.cos(time * Math.random()) * 300,
+    z: Math.cos(time * Math.random()) * 250,
   }, 3000)
     .easing(TWEEN.Easing.Quadratic.Out).start();
 
@@ -234,47 +234,89 @@ function tween(light) {
 }
 
 
-const CreateLight = function CreateLight(renderer, scene, camera, config) {
-  const {
-    position: { x, y, z },
-    color,
-    pointTargetPosition,
-  } = config;
-  const spotLight = createSpotlight(color);
-  spotLight.position.set(x, y, z);
+// const CreateLight = function CreateLight(renderer, scene, camera, config) {
+//   const {
+//     position: { x, y, z },
+//     color,
+//     pointTargetPosition,
+//   } = config;
+//   const spotLight = createSpotlight(color);
+//   spotLight.position.set(x, y, z);
+//
+//   const targetSpotLight = createTargetPoint(pointTargetPosition);
+//   spotLight.target = targetSpotLight;
+//
+//   const lightHelper = new THREE.SpotLightHelper(spotLight, color, 3);
+//
+//   scene.add(spotLight);
+//   scene.add(targetSpotLight);
+//   scene.add(lightHelper);
+//
+//   render();
+//   animate();
+//   let isEvenAnimation = false;
+//
+//   function animate() {
+//     if (isEvenAnimation % 8 === 0) {
+//       tweenBack(targetSpotLight);
+//       isEvenAnimation = 1;
+//       setTimeout(animate, 5000);
+//     } else {
+//       tween(targetSpotLight);
+//       isEvenAnimation += 1;
+//       setTimeout(animate, 3000);
+//     }
+//   }
+//
+//   function render() {
+//     TWEEN.update();
+//
+//     if (lightHelper) lightHelper.update();
+//
+//     renderer.render(scene, camera);
+//     requestAnimationFrame(render);
+//   }
+// };
 
-  const targetSpotLight = createTargetPoint(pointTargetPosition);
-  spotLight.target = targetSpotLight;
+class CreateLight {
+  constructor(renderer, scene, camera, config) {
+    this.color = config.color;
+    this.position = config.position;
+    this.pointTargetPosition = config.pointTargetPosition;
+    this.animate = this.animate.bind(this);
+    this.render = this.render.bind(this);
+  }
 
-  const lightHelper = new THREE.SpotLightHelper(spotLight, color, 3);
+  createMeshes() {
+    const { x, y, z } = this.position;
+    const spotLight = createSpotlight(this.color);
+    spotLight.position.set(x, y, z);
 
-  scene.add(spotLight);
-  scene.add(targetSpotLight);
-  scene.add(lightHelper);
+    this.targetSpotLight = createTargetPoint(this.pointTargetPosition);
+    spotLight.target = this.targetSpotLight;
 
-  render();
-  animate();
-  let isEvenAnimation = false;
+    this.lightHelper = new THREE.SpotLightHelper(spotLight, this.color, 3);
+    this.animate();
+    return [spotLight, this.targetSpotLight, this.lightHelper];
+  }
 
-  function animate() {
-    if (isEvenAnimation % 8 === 0) {
-      tweenBack(targetSpotLight);
-      isEvenAnimation = 1;
-      setTimeout(animate, 5000);
+  isEvenAnimation = false;
+
+  animate() {
+    if (this.isEvenAnimation % 80 === 0) {
+      tweenBack(this.targetSpotLight);
+      this.isEvenAnimation = 1;
+      setTimeout(this.animate, 5000);
     } else {
-      tween(targetSpotLight);
-      isEvenAnimation += 1;
-      setTimeout(animate, 3000);
+      tween(this.targetSpotLight);
+      this.isEvenAnimation += 1;
+      setTimeout(this.animate, 3000);
     }
   }
 
-  function render() {
+  render() {
     TWEEN.update();
-
-    if (lightHelper) lightHelper.update();
-
-    renderer.render(scene, camera);
-    requestAnimationFrame(render);
+    this.lightHelper.update();
   }
 }
 

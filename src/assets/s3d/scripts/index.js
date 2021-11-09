@@ -5,9 +5,10 @@ import {
   loadFontAsync,
   createText,
 } from './modules/createrTextObject';
-import dynamicPoints from './modules/dynamicPoints';
+import DynamicPoints from './modules/dynamicPoints';
 import CreateScreen from './modules/screen';
 import { CreateLight, CreateLight2 } from './modules/light';
+import loadTextAsync from './modules/loadTextObject';
 import createPlatform from './modules/platform';
 
 document.addEventListener('DOMContentLoaded', global => {
@@ -31,13 +32,16 @@ async function appInit() {
 
   const text = `LASER
  SAGA`;
-  const font = await loadFontAsync();
-  const groupText = createText(font, text);
-  dynamicPoints(scene, renderer, camera, groupText);
+  const groupText = await loadTextAsync();
+  // const font = await loadFontAsync();
+  // const groupText = createText(font, text);
+  const dynamicPoints = new DynamicPoints(scene, renderer, camera, groupText);
+  const meshText = dynamicPoints.create();
+  scene.add(meshText);
 
   const configScreen1 = {
     selector: '.js-video1',
-    width: 480,
+    width: 640,
     height: 360,
     x: -800,
     y: 150,
@@ -46,7 +50,7 @@ async function appInit() {
   };
   const configScreen2 = {
     selector: '.js-video1',
-    width: 480,
+    width: 640,
     height: 360,
     x: 0,
     y: 150,
@@ -55,7 +59,7 @@ async function appInit() {
   };
   const configScreen3 = {
     selector: '.js-video1',
-    width: 480,
+    width: 640,
     height: 360,
     x: 800,
     y: 150,
@@ -76,7 +80,7 @@ async function appInit() {
       y: 600,
       z: -650,
     },
-    color: 0xFF7F00,
+    color: 0xFFFF00,
     pointTargetPosition: {
       x: 300,
       y: 0,
@@ -94,7 +98,7 @@ async function appInit() {
       y: 600,
       z: 650,
     },
-    color: 0x00FF7F,
+    color: 0x7F00FF,
     pointTargetPosition: {
       x: 50,
       y: 0,
@@ -143,14 +147,14 @@ async function appInit() {
     },
   };
 
-  CreateLight2(renderer, scene, camera, configSpotLight1);
-  CreateLight2(renderer, scene, camera, configSpotLight2);
-  CreateLight2(renderer, scene, camera, configSpotLight3);
-  CreateLight2(renderer, scene, camera, configSpotLight4);
-  // сreateLight(renderer, scene, camera, configSpotLight1);
-  // сreateLight(renderer, scene, camera, configSpotLight2);
-  // сreateLight(renderer, scene, camera, configSpotLight3);
-  // сreateLight(renderer, scene, camera, configSpotLight4);
+  const light1 = new CreateLight(renderer, scene, camera, configSpotLight1);
+  scene.add(...light1.createMeshes());
+  const light2 = new CreateLight(renderer, scene, camera, configSpotLight2);
+  scene.add(...light2.createMeshes());
+  const light3 = new CreateLight(renderer, scene, camera, configSpotLight3);
+  scene.add(...light3.createMeshes());
+  const light4 = new CreateLight(renderer, scene, camera, configSpotLight4);
+  scene.add(...light4.createMeshes());
 
   const platform = createPlatform({
     x: 0,
@@ -168,4 +172,17 @@ async function appInit() {
   });
   scene.add(platform, backgroundForScene);
   renderer.render(scene, camera);
+  animate();
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    renderer.clear();
+    dynamicPoints.render();
+    light1.render();
+    light2.render();
+    light3.render();
+    light4.render();
+    renderer.render(scene, camera);
+  }
 }

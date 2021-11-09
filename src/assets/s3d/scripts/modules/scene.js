@@ -21,17 +21,16 @@ export default function createScene() {
   let windowHalfX = window.innerWidth / 2;
 
   const parameters = init();
-  animate();
+  // animate();
   return parameters;
 
   function init() {
     container = document.getElementById('scene');
 
     // CAMERA
-
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 700, 1500);
-    cameraTarget = new THREE.Vector3(0, 200, 0);
+    camera.position.set(0, 500, 1500);
+    cameraTarget = new THREE.Vector3(0, 100, 0);
 
     // SCENE
 
@@ -39,7 +38,7 @@ export default function createScene() {
     // scene.background = new THREE.Color(0xffffff);
     scene.background = new THREE.Color(0x000104);
     // scene.fog = new THREE.FogExp2(0xffffff, 0.000275);
-    scene.fog = new THREE.FogExp2(0x000104, 0.0000675);
+    // scene.fog = new THREE.FogExp2(0x000104, 0.0000675);
     camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -69,7 +68,7 @@ export default function createScene() {
     window.addEventListener('resize', onWindowResize);
 
     return {
-      scene, camera, renderer, pointLight,
+      scene, camera, renderer,
     };
   }
 
@@ -107,17 +106,17 @@ export default function createScene() {
     document.removeEventListener('pointerup', onPointerUp);
   }
 
-  function animate() {
-    requestAnimationFrame(animate);
-    render();
-  }
-
-  function render() {
-    // camera.position.x += (targetRotation - camera.position.x) * 0.05;
-
-    camera.lookAt(cameraTarget);
-
-    renderer.clear();
-    renderer.render(scene, camera);
-  }
+  // function animate() {
+  //   requestAnimationFrame(animate);
+  //   render();
+  // }
+  //
+  // function render() {
+  //   // camera.position.x += (targetRotation - camera.position.x) * 0.05;
+  //
+  //   camera.lookAt(cameraTarget);
+  //
+  //   renderer.clear();
+  //   renderer.render(scene, camera);
+  // }
 }

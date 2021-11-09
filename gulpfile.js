@@ -1,5 +1,5 @@
 const proxy = 'lazerSaga';
-const projectName = 'lazer-saga';
+const projectName = 'laser-saga';
 const outputPathProject = `./wp-content/themes/${projectName}/`;
 
 const fs = require('fs');
