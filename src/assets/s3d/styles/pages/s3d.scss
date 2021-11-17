@@ -28,8 +28,8 @@ sup {
 
 .scene {
   display: inline-block;
-  height: calc(100vh - var(--offset-page) * 2);
-  height: calc(var(--vh, 1vh) * 100 - var(--offset-page) * 2);
+  max-height: calc(100vh - var(--offset-page) * 2 - var(--header-h));
+  max-height: calc(var(--vh, 1vh) * 100 - var(--offset-page) * 2 - var(--header-h));
   width: 100%;
   canvas {
     height: 100%!important;
@@ -48,6 +48,7 @@ sup {
   width: 100%;
   height: calc(100vh);
   height: calc(var(--vh, 1vh) * 100);
+  padding-top: var(--header-h);
   overflow: hidden;
   &__bg {
     height: 100%;
@@ -109,7 +110,7 @@ sup {
   width: calc(100% - (var(--offset-page) * 2 + var(--offset-page)));
   transform: translate(-50%, -50%);
   z-index: 5;
-  font-family: Px Grotesk;
+  font-family: "PxGrotesk", sans-serif;
   font-weight: normal;
   font-size: 18px;
   line-height: 140%;
