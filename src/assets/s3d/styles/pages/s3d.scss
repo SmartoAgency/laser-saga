@@ -13,7 +13,6 @@ html, body, .page__content, .page__inner {
 
 body {
   display: block;
-  font-family: $default-font;
 }
 
 sup {
@@ -27,11 +26,121 @@ sup {
   user-select: none;   /*Chrome/Safari/Opera*/
 }
 
-.s3d {
-
-}
 .scene {
-  height: 100%;
+  display: inline-block;
+  height: calc(100vh - var(--offset-page) * 2);
+  height: calc(var(--vh, 1vh) * 100 - var(--offset-page) * 2);
   width: 100%;
+  canvas {
+    height: 100%!important;
+    width: 100%!important;
+  }
 }
 
+.screen {
+  display: grid;
+  grid-template-columns: var(--offset-page) auto var(--offset-page);
+  grid-template-rows: var(--offset-page) auto var(--offset-page);
+  grid-template-areas: 'bg-top bg-top bg-top'
+'bg-left screen bg-right'
+'bg-bottom bg-bottom bg-bottom';
+  //height: 100%;
+  width: 100%;
+  height: calc(100vh);
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+  &__bg {
+    height: 100%;
+    width: 100%;
+    background: $bc;
+    z-index: 0;
+  }
+  &-bg {
+    &--top {
+      grid-area: bg-top;
+    }
+    &--bottom {
+      grid-area: bg-bottom;
+    }
+    &--left {
+      grid-area: bg-left;
+    }
+    &--right {
+      grid-area: bg-right;
+    }
+  }
+}
+
+.border {
+  &-top {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    border-bottom: 1px solid $wc;
+    z-index: 3;
+  }
+  &-bottom {
+    grid-row: -2;
+    grid-column: 1 / -1;
+    border-top: 1px solid $wc;
+    z-index: 3;
+  }
+  &-left {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    border-right: 1px solid $wc;
+    z-index: 3;
+  }
+  &-right {
+    grid-row: 1 / -1;
+    grid-column: -2;
+    border-left: 1px solid $wc;
+    z-index: 3;
+  }
+}
+.index-hidden {
+  display: none;
+  position: absolute;
+}
+
+.general-title {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  width: calc(100% - (var(--offset-page) * 2 + var(--offset-page)));
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  font-family: Px Grotesk;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 992px){
+  .general-title {
+    font-size: 16px;
+    width: 90%;
+  }
+  .border {
+    &--top,
+    &--bottom,
+    &--left,
+    &--right {
+      display: none;
+    }
+
+  }
+  .screen__bg {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px){
+  .general-title {
+    top: 65%;
+    width: 90%;
+    font-size: 12px;
+  }
+}

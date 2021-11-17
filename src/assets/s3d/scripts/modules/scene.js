@@ -1,7 +1,31 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-// import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+
+function getCameraPosition(hdCameraPosition) {
+  const getActualValue = (width => {
+    const cof = 1920 / width;
+    const fnDesktop = defaultValue => defaultValue * cof;
+    const fnTablet = defaultValue => defaultValue * (cof / 2);
+    const fnMobile = defaultValue => defaultValue * (cof / 2.7);
+
+    switch (true) {
+        case width >= 1024:
+          return fnDesktop;
+        case width >= 768:
+          return fnTablet;
+        case width >= 320:
+          return fnMobile;
+        default:
+          throw new Error(`unknown screen width: ${width}`);
+    }
+  })(window.innerWidth);
+
+  const cameraPosition = [
+    getActualValue(hdCameraPosition.x),
+    getActualValue(hdCameraPosition.y),
+    getActualValue(hdCameraPosition.z),
+  ];
+  return cameraPosition;
+}
 
 export default function createScene() {
 
@@ -9,7 +33,6 @@ export default function createScene() {
 
   let container;
   let camera;
-  let cameraTarget;
   let scene;
   let renderer;
   let targetRotation = 0;
@@ -21,31 +44,33 @@ export default function createScene() {
   let windowHalfX = window.innerWidth / 2;
 
   const parameters = init();
-  // animate();
   return parameters;
 
   function init() {
     container = document.getElementById('scene');
 
     // CAMERA
+    const hdCameraPosition = {
+      x: 0,
+      y: 150,
+      z: 800,
+    };
+
+    const cameraPosition = getCameraPosition(hdCameraPosition);
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 500, 1500);
-    cameraTarget = new THREE.Vector3(0, 100, 0);
+    camera.position.set(...cameraPosition);
 
     // SCENE
-
     scene = new THREE.Scene();
-    // scene.background = new THREE.Color(0xffffff);
     scene.background = new THREE.Color(0x000104);
-    // scene.fog = new THREE.FogExp2(0xffffff, 0.000275);
-    // scene.fog = new THREE.FogExp2(0x000104, 0.0000675);
-    camera.lookAt(scene.position);
+    camera.lookAt(0, 130, 0);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.autoClear = false;
-    renderer.shadowMap.enabled	= true;
+    // renderer.shadowMap.enabled	= true;
+    // renderer.shadowMap.renderReverseSided = false;
     // LIGHTS
 
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.125);
@@ -60,21 +85,22 @@ export default function createScene() {
 
 
     container.appendChild(renderer.domElement);
-    const controls = new OrbitControls(camera, renderer.domElement);
+    // const controls = new OrbitControls(camera, renderer.domElement);
     // EVENTS
     container.style.touchAction = 'none';
     container.addEventListener('pointerdown', onPointerDown);
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('resize', () => onWindowResize(hdCameraPosition));
 
     return {
       scene, camera, renderer,
     };
   }
 
-  function onWindowResize() {
+  function onWindowResize(hdCameraPosition) {
     windowHalfX = window.innerWidth / 2;
-
+    const cameraPosition = getCameraPosition(hdCameraPosition);
+    camera.position.set(...cameraPosition);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
@@ -105,18 +131,4 @@ export default function createScene() {
     document.removeEventListener('pointermove', onPointerMove);
     document.removeEventListener('pointerup', onPointerUp);
   }
-
-  // function animate() {
-  //   requestAnimationFrame(animate);
-  //   render();
-  // }
-  //
-  // function render() {
-  //   // camera.position.x += (targetRotation - camera.position.x) * 0.05;
-  //
-  //   camera.lookAt(cameraTarget);
-  //
-  //   renderer.clear();
-  //   renderer.render(scene, camera);
-  // }
 }

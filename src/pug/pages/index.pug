@@ -17,8 +17,22 @@ block scripts
   script(defer src=`/wp-content/themes/${nameProject}/assets/s3d/scripts/vendors.bundle.js`)
   script(defer src=`/wp-content/themes/${nameProject}/assets/s3d/scripts/index.bundle.js`)
 block content
-    .scene(id="scene")
-    video.js-video1(height='480px' loop muted playsinline style="display:none")
+    video.js-test.index-hidden(height='480px' loop muted playsinline style="display:none")
+        source(src=`/wp-content/themes/${nameProject}/assets/video/test.mp4`)
+    video.js-video.index-hidden(height='480px' loop muted playsinline style="display:none")
         source(src=`/wp-content/themes/${nameProject}/assets/video/clean.mp4`)
+    img.js-poster.index-hidden(src=`/wp-content/themes/${nameProject}/assets/s3d/images/poster.jpg` style="display:none;height:480px;")
+    .screen
+        .scene(id="scene")
+        .border-top
+        .border-bottom
+        .border-left
+        .border-right
+        .screen__bg.screen-bg--top
+        .screen__bg.screen-bg--bottom
+        .screen__bg.screen-bg--left
+        .screen__bg.screen-bg--right
+    .general-title Art Inspired By Technology
+
 block header
   include ../includes/header.pug

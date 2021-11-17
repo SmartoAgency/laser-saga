@@ -3,8 +3,8 @@ const glob = require('glob');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
-  // mode: 'production',
-  mode: 'development',
+  mode: 'production',
+  // mode: 'development',
   entry: glob.sync('./src/assets/s3d/scripts/*.js').reduce((obj, el) => {
     obj[path.parse(el).name] = el;
     return obj;

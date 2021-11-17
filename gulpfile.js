@@ -80,8 +80,12 @@ const paths = {
     dest: './src/assets/s3d/scripts/gulp-modules/',
   },
   video: {
-    src: './src/assets/models/video/**/*',
+    src: './src/assets/video/**/*',
     dest: `${outputPathProject}/assets/video`,
+  },
+  models: {
+    src: './src/assets/models/**/*',
+    dest: `${outputPathProject}/assets/models`,
   },
   static: {
     src: './src/static/**/*.*',
@@ -92,6 +96,7 @@ const paths = {
 // create fn for translate content
 const translateContentDev = translateContent(paths);
 const video = () => translateContentDev('video');
+const models = () => translateContentDev('models');
 const phpTemplates = () => translateContentDev('phpTemplates');
 const fonts = () => translateContentDev('fonts');
 const staticFolder = () => translateContentDev('static');
@@ -110,6 +115,7 @@ function watch() {
   gulp.watch(paths.libs.src, libs);
   gulp.watch(paths.static.src, staticFolder);
   gulp.watch(paths.video.src, video);
+  gulp.watch(paths.models.src, models);
   gulp.watch('./src/pug/**/*.html', templates);
   gulp.watch('./src/assets/svg-sprite/*.*', svgSprite);
 }
@@ -237,6 +243,7 @@ exports.svgSprite = svgSprite;
 exports.libs = libs;
 exports.staticFolder = staticFolder;
 exports.video = video;
+exports.models = models;
 exports.watchScssTemplates = watchScssTemplates;
 
 
@@ -246,7 +253,7 @@ gulp.task('default', gulp.series(
   clean,
   libs,
   scripts,
-  gulp.parallel(styles, phpTemplates, templates, fonts, images, staticFolder, video),
+  gulp.parallel(styles, phpTemplates, templates, fonts, images, staticFolder, video, models),
   gulp.parallel(watch, server),
 ));
 
