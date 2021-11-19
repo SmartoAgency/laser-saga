@@ -105,7 +105,7 @@ sup {
 
 .general-title {
   position: absolute;
-  top: 70%;
+  top: calc(70% + var(--header-h));
   left: 50%;
   width: calc(100% - (var(--offset-page) * 2 + var(--offset-page)));
   transform: translate(-50%, -50%);
@@ -132,7 +132,6 @@ sup {
     &--right {
       display: none;
     }
-
   }
   .screen__bg {
     display: none;
@@ -140,7 +139,7 @@ sup {
 }
 @media screen and (max-width: 767px){
   .general-title {
-    top: 65%;
+    top: calc(65% + var(--header-h));
     width: 90%;
     font-size: 12px;
   }
