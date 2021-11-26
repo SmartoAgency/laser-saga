@@ -280,12 +280,12 @@ async function appInit() {
     renderer.clear();
     TWEEN.update();
     dynamicPoints.render();
-    targetX = mouse.x * 0.0005;
-    targetY = mouse.y * 0.0003;
+    targetX = mouse.x * 0.0007;
+    targetY = mouse.y * 0.0005;
 
     if (parent) {
-      parent.rotation.y += 0.03 * (targetX - parent.rotation.y);
-      parent.rotation.x += 0.2 * (targetY - parent.rotation.x);
+      parent.rotation.y += 0.06 * (targetX - parent.rotation.y);
+      parent.rotation.x += 0.4 * (targetY - parent.rotation.x);
     }
 
     renderer.render(scene, camera);

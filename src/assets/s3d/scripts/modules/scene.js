@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function getCameraPosition(hdCameraPosition) {
   const getActualValue = (width => {
@@ -28,7 +29,6 @@ function getCameraPosition(hdCameraPosition) {
 }
 
 export default function createScene() {
-
   THREE.Cache.enabled = true;
 
   let container;
@@ -85,7 +85,11 @@ export default function createScene() {
 
 
     container.appendChild(renderer.domElement);
-    // const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.maxDistance = 1500;
+    controls.minDistance = 700;
+    controls.enableRotate = false;
+    controls.zoomSpeed = 0.1;
     // EVENTS
     container.style.touchAction = 'none';
     container.addEventListener('pointerdown', onPointerDown);
